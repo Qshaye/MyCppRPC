@@ -1,0 +1,27 @@
+syntax = "proto3"; //声明protobuf的版本
+
+package fixbug; // 声明代码所在的包，C++中的namespace
+
+option cc_generic_services = true; // 要求生成service服务类和rpc方法描述
+
+message ResultCode
+{
+    int32 errcode = 1;
+    bytes errmsg = 2;
+}
+
+message GetFriendListRequest
+{
+    uint32 userid = 1;
+}
+
+message GetFriendListResponse
+{
+    ResultCode result = 1;
+    repeated bytes friends = 2;
+}
+
+service FriendServiceRpc
+{
+    rpc GetFriendList(GetFriendListRequest) returns(GetFriendListResponse);
+}
